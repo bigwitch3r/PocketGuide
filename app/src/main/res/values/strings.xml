@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Pocket Guide</string>
+    <string name="title_home">Главная</string>
+    <string name="title_dashboard">Категории</string>
+    <string name="title_notifications">Уведомления</string>
+    <string name="title_profile">Профиль</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
