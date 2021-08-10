@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_account"
         android:name="com.witchnwitcher.pocketguide.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_account"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
