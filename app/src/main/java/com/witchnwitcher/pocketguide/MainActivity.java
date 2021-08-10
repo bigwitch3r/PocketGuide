@@ -14,6 +14,7 @@ import com.witchnwitcher.pocketguide.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private ActivityMainBinding binding;
 
     @Override
