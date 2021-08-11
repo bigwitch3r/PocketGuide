@@ -4,4 +4,5 @@
     <string name="title_account">Аккаунт</string>
     <string name="title_notifications">Уведомления</string>
     <string name="listTitle">Список гайдов</string>
+    <integer name="com_vk_sdk_AppId">7923769</integer>
 </resources>

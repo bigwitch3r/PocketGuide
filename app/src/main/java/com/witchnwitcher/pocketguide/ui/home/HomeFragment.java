@@ -1,6 +1,7 @@
 package com.witchnwitcher.pocketguide.ui.home;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,9 +20,16 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.vk.api.sdk.VK;
+import com.vk.api.sdk.auth.VKAccessToken;
+import com.vk.api.sdk.auth.VKAuthCallback;
+import com.vk.api.sdk.auth.VKScope;
 import com.witchnwitcher.pocketguide.databinding.FragmentHomeBinding;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class HomeFragment extends Fragment {
 
@@ -47,14 +55,6 @@ public class HomeFragment extends Fragment {
                     1);
         }
 
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                // textView.setText(s);
-            }
-        });
-
-
         return root;
     }
 
@@ -65,6 +65,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void getFiles(ListView view) {
+
         File dir = new File("/storage/emulated/0/Guides/");
         File f = new File(dir.toString());
         File[] list = f.listFiles();

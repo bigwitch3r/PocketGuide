@@ -1,16 +1,27 @@
 package com.witchnwitcher.pocketguide;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.vk.api.sdk.VK;
+import com.vk.api.sdk.VKApiCallback;
+import com.vk.api.sdk.auth.VKAccessToken;
+import com.vk.api.sdk.auth.VKAuthCallback;
+import com.vk.api.sdk.auth.VKScope;
 import com.witchnwitcher.pocketguide.databinding.ActivityMainBinding;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +44,33 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        if (!VK.isLoggedIn())
+        {
+            Collection<VKScope> scopes = new ArrayList<VKScope>();
+            scopes.add(VKScope.WALL);
+            VK.login(this, scopes);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (VK.onActivityResult(requestCode, resultCode, data, new VKAuthCallback() {
+            @Override
+            public void onLogin(@NonNull VKAccessToken vkAccessToken) {
+                Toast.makeText(getBaseContext(), "+", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onLoginFailed(int i) {
+                Toast.makeText(getBaseContext(), "-", Toast.LENGTH_LONG).show();
+            }
+        }))
+        {
+          super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
 }
