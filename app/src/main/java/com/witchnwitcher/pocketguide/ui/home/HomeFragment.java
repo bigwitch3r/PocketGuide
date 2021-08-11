@@ -1,37 +1,23 @@
 package com.witchnwitcher.pocketguide.ui.home;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.vk.api.sdk.VK;
-import com.vk.api.sdk.auth.VKAccessToken;
-import com.vk.api.sdk.auth.VKAuthCallback;
-import com.vk.api.sdk.auth.VKScope;
 import com.witchnwitcher.pocketguide.databinding.FragmentHomeBinding;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment
+{
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -49,7 +35,7 @@ public class HomeFragment extends Fragment {
         final ListView guideList = binding.guideList;
 
         if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-            getFiles(guideList);
+            homeViewModel.getFiles(guideList, getActivity());
         } else {
             ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
                     1);
@@ -62,34 +48,6 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    public void getFiles(ListView view) {
-
-        File dir = new File("/storage/emulated/0/Guides/");
-        File f = new File(dir.toString());
-        File[] list = f.listFiles();
-        int n = list.length;
-        String[] fileNames = new String[n];
-        for (int i = 0; i < list.length; i++)
-        {
-            fileNames[i] = list[i].toString();
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, fileNames);
-        view.setAdapter(adapter);
-
-        view.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id)
-            {
-                // по позиции получаем выбранный элемент
-                String selectedItem = fileNames[position];
-                // установка текста элемента TextView
-                Toast toast = Toast.makeText(getActivity(), selectedItem, Toast.LENGTH_LONG);
-                toast.show();
-            }
-        });
     }
 
 }
