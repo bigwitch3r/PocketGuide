@@ -17,6 +17,7 @@ import com.vk.api.sdk.VK;
 import com.vk.api.sdk.auth.VKAccessToken;
 import com.vk.api.sdk.auth.VKAuthCallback;
 import com.vk.api.sdk.auth.VKScope;
+import com.vk.api.sdk.utils.VKUtils;
 import com.witchnwitcher.pocketguide.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
@@ -46,10 +47,15 @@ public class MainActivity extends AppCompatActivity
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        // Если пользователь НЕ авторизован
         if (!VK.isLoggedIn())
         {
-            Collection<VKScope> scopes = new ArrayList<VKScope>();
+            // Запускаем процедуру авторизации
+            // Создаём динамический массив с разрешениями, которые будем запрашивать у пользователя ВК
+            Collection<VKScope> scopes = new ArrayList<>();
+            // Добавляем в динамический массив нужные разрешения, в данном случае - к стене
             scopes.add(VKScope.WALL);
+            // Непосредственно авторизация
             VK.login(this, scopes);
         }
 
@@ -61,12 +67,12 @@ public class MainActivity extends AppCompatActivity
         if (VK.onActivityResult(requestCode, resultCode, data, new VKAuthCallback() {
             @Override
             public void onLogin(@NonNull VKAccessToken vkAccessToken) {
-                Toast.makeText(getBaseContext(), "+", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Авторизация прошла успешно", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onLoginFailed(int i) {
-                Toast.makeText(getBaseContext(), "-", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Авторизация не удалась", Toast.LENGTH_LONG).show();
             }
         }))
         {

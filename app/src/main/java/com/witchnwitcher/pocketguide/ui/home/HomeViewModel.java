@@ -11,6 +11,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.vk.api.sdk.utils.VKUtils;
+
 import java.io.File;
 
 public class HomeViewModel extends ViewModel {
@@ -26,9 +28,9 @@ public class HomeViewModel extends ViewModel {
         return mText;
     }
 
-    public void getFiles(ListView view, Activity activity) {
+    /* public void getFiles(ListView view, Activity activity) {
 
-        File dir = new File("/storage/emulated/0/Guides/");
+        File dir = new File("/storage/emulated/0/");
         File f = new File(dir.toString());
         File[] list = f.listFiles();
         int n = list.length;
@@ -57,5 +59,5 @@ public class HomeViewModel extends ViewModel {
     public void getGuides()
     {
 
-    }
+    }*/
 }
